@@ -70,7 +70,7 @@ public class HttpThread extends Thread {
         if (cmdResult == 0) {
             msg.obj = "update hosts success!";
         } else {
-            msg.obj = "update hosts fail!";
+            msg.obj = "更新失败!!!";
         }
         handler.sendMessage(msg);
     }
