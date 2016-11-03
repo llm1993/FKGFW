@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
+
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

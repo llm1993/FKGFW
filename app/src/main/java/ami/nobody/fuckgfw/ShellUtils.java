@@ -1,8 +1,5 @@
 package ami.nobody.fuckgfw;
 
-/**
- * Created by SAMSUNG on 2016/9/24.
- */
 
 import java.io.DataOutputStream;
 import java.io.IOException;
