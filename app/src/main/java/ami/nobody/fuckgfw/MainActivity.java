@@ -8,11 +8,16 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
+    private EditText editText;
+    private RadioButton radioButton1;
+    private RadioButton radioButton2;
 
     Handler handler = new Handler() {
         @Override
@@ -26,12 +31,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        editText = (EditText) findViewById(R.id.editText);
+        radioButton1 = (RadioButton) findViewById(R.id.radioButton1);
+        radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isNetworkAvailable()) {
-                    HttpThread httpThread = new HttpThread(handler);
+                    String url = String.valueOf(editText.getText());
+                    if (!url.trim().equals("") && !url.startsWith("http")) {
+                        Toast.makeText(getApplicationContext(), "地址有误！", Toast.LENGTH_SHORT).show();
+                    }
+                    boolean radio1IsChecked = false;
+                    boolean radio2IsChecked = false;
+                    if(radioButton1.isChecked()){
+                        radio1IsChecked = true;
+                    }
+                    if(radioButton2.isChecked()){
+                        radio2IsChecked = true;
+                    }
+                    HttpThread httpThread = new HttpThread(handler, url,radio1IsChecked,radio2IsChecked);
                     httpThread.start();
                 } else {
                     Message message = new Message();
